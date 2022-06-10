@@ -16,5 +16,8 @@ variable "managed_policies" {
     "arn:aws:iam::aws:policy/AmazonS3OutpostsReadOnlyAccess",
   ]
 }
-    
+
+variable "allowed_region" {
+  default = "us-east-1"
+}  
     

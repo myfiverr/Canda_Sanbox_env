@@ -1,5 +1,6 @@
 
 region                      = "us-east-1"
+allowed_region              = "us-east-1"
 role_name                   = "p4-dev-trigger"
 managed_policies            = ["arn:aws:iam::aws:policy/AmazonS3FullAccess",
                                 "arn:aws:iam::aws:policy/CloudWatchFullAccess",
