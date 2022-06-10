@@ -1,31 +1,12 @@
 
 
-variable "function_name" {
-  default = "p4-lambda-poc-latest-test"
+variable "region" {
+  default = "us-east-1"
 }
-variable "lambda_execution_role_name" {
+variable "role_name" {
   default = "p4-lambda-poc-test"
 }
-variable "glue_role_name" {
-  default = "p4-glue-poc-test"
-}
-variable "glue_s3_role_name" {
-  default = "p4-glue-s3-poc-test"
-}
-
-variable "glue_job1_name" {
-  default = "_job1"
-}
-
-variable "glue_job2_name" {
-  default = "_job2"
-}
-
-variable "glue_job3_name" {
-  default = "_job3"
-}
-
-variable "lambda_managed_policies" {
+variable "managed_policies" {
   default = ["arn:aws:iam::aws:policy/AmazonS3FullAccess",
     "arn:aws:iam::aws:policy/CloudWatchFullAccess",
     "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess",
@@ -35,25 +16,5 @@ variable "lambda_managed_policies" {
     "arn:aws:iam::aws:policy/AmazonS3OutpostsReadOnlyAccess",
   ]
 }
-
-variable "glue_managed_policies" {
-  default = ["arn:aws:iam::aws:policy/AmazonS3FullAccess",
-    "arn:aws:iam::aws:policy/CloudWatchFullAccess",
-    "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole",
-    "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess",
-    "arn:aws:iam::aws:policy/AWSGlueConsoleFullAccess",
-  ]
-}
-
-variable "glue_s3_managed_policies" {
-  default = ["arn:aws:iam::aws:policy/AmazonS3FullAccess",
-    "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-    "arn:aws:iam::aws:policy/AWSGlueConsoleFullAccess",
-    "arn:aws:iam::aws:policy/CloudWatchEventsFullAccess",
-    "arn:aws:iam::aws:policy/AWSLambda_FullAccess",
-  ]
-}
-
-
     
     
