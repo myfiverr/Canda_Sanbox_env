@@ -40,48 +40,20 @@ resource "aws_iam_policy" "custom_policy" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Action": "ec2:*",
             "Effect": "Allow",
-            "Resource": "*",
-            "Condition": {
-                "StringEquals": {
-                    "aws:RequestedRegion": "${var.allowed_region}"
-                }
-            }
-        },
-        {
-            "Effect": "Allow",
-            "Action": "elasticloadbalancing:*",
-            "Resource": "*",
-            "Condition": {
-                "StringEquals": {
-                    "aws:RequestedRegion": "${var.allowed_region}"
-                }
-            }
-        },
-        {
-            "Effect": "Allow",
-            "Action": "cloudwatch:*",
-            "Resource": "*",
-            "Condition": {
-                "StringEquals": {
-                    "aws:RequestedRegion": "${var.allowed_region}"
-                }
-            }
-        },
-        {
-            "Effect": "Allow",
-            "Action": "autoscaling:*",
-            "Resource": "*",
-            "Condition": {
-                "StringEquals": {
-                    "aws:RequestedRegion": "${var.allowed_region}"
-                }
-            }
-        },
-        {
-            "Effect": "Allow",
-            "Action": "s3:*",
+            "Action": ["ec2:*",
+                       "wafv2:*",
+                       "elasticloadbalancing:*",
+                       "cloudwatch:*",
+                       "autoscaling:*",
+                       "s3:*",
+                       "rds:*",
+                       "ssmmessages:*",
+                       "ssm:*",
+                       "wafv2:*",
+                       "ecs:*",
+                       "cloudfront:*"
+                       ],
             "Resource": "*",
             "Condition": {
                 "StringEquals": {
@@ -99,8 +71,7 @@ resource "aws_iam_role_policy_attachment" "Custom_Policy" {
   role       = aws_iam_role.Role.name
 }
 
-
-/* Restrict Region */
+/* Enfore MFA */
 resource "aws_iam_policy" "enforce_mfa_policy" {
   name        = "enforce_mfa_policy"
   path        = "/"
@@ -224,3 +195,16 @@ resource "aws_iam_role_policy_attachment" "enforce_mfa_policy" {
   policy_arn = aws_iam_policy.enforce_mfa_policy.arn
   role       = aws_iam_role.Role.name
 }
+
+#Account password policy
+resource "aws_iam_account_password_policy" "strict" {
+  minimum_password_length        = 8
+  require_lowercase_characters   = true
+  require_numbers                = true
+  require_uppercase_characters   = true
+  require_symbols                = true
+  allow_users_to_change_password = true
+}
+
+#Enables Security Hub for this AWS account.
+resource "aws_securityhub_account" "enable_security_hub" {}
